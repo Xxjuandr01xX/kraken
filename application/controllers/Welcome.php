@@ -8,6 +8,6 @@ class Welcome extends CI_Controller {
 	 * modulo de configuracion.
 	 */
 	public function index(){
-		$this->load->view('welcome_message');
+		$this->load->view('login/login', ["titulo" => "Kraken Dev - Inventario"]);
 	}
 }
