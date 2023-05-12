@@ -19,33 +19,44 @@
     <div class="container">
         <!-- Outer Row -->
         <div class="row justify-content-center">
-            <div class="col-xl-10 col-lg-12 col-md-9">
+            <div class="col-xl-6 col-lg-6 col-md-6">
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
-                        <div class="row">
-                            <div class="col-lg-6 d-none d-lg-block"></div>
-                            <div class="col-lg-6">
+                        <div class="row d-flex justify-content-center">
+                            <div class="col-md-12">
                                 <div class="p-5">
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Iniciar Session</h1>
                                     </div>
-                                    <form class="user">
-                                        <div class="form-group">
-                                            <input type="email" class="form-control form-control-user"
-                                                id="usr_name" aria-describedby="emailHelp"
-                                                placeholder="Enter Email Address...">
-                                        </div>
-                                        <div class="form-group">
-                                            <input type="usr_pass" class="form-control form-control-user"
-                                                id="exampleInputPassword" placeholder="Password">
-                                        </div>
-                                        <a href="index.html" class="btn btn-primary btn-user btn-block">
-                                            Entrar
-                                        </a>
-                                        <hr>
+
+                                    <div class="input-group mb-3">
+                                         <label for="" class="input-group-text">
+                                            <i class = "fa fa-user"></i>
+                                         </label>
+                                        <input type="text" name="" id="user_name" class="form-control" placeholder = "Nombre de usuario">
+                                    </div>
+
+                                    <div class="input-group mb-3">
+                                         <label for="" class="input-group-text">
+                                            <i class = "fa fa-lock"></i>
+                                         </label>
+                                        <input type="password" name="" id="user_pass" class="form-control" placeholder = "Clave">
                                         
-                                    </form>
+                                        <button onclick = "set_visible_password()" class = "input-group-text btn btn-sm btn-secondary">
+                                            <i class = "fa fa-eye"></i>
+                                        </button>
+                                       
+                                    </div>
+
+                                   <div class="row clearfix d-flex justify-content-center ">
+                                        <div class="col-md-8 mt-3">
+                                            <button class="btn btn-success rounded-0 w-100">
+                                                Entrar 
+                                            </button>
+                                        </div>
+                                   </div>
+
                                     <hr>
                                 </div>
                             </div>
@@ -65,5 +76,22 @@
     <script src="public/template/vendor/jquery-easing/jquery.easing.min.js"></script>
     <!-- Custom scripts for all pages-->
     <script src="public/template/js/sb-admin-2.min.js"></script>
+    <!-- -->
+    <script src="public/template/js/sb-admin-2.min.js"></script>
+    <script type = "text/javascript">
+        let password_of = (id) => $(id).attr("type", "text");
+        let password_on = (id) => $(id).attr("type", "password");
+        function set_visible_password(){
+            /**
+             *  validacion para ocultar y mostrar caracteres del campo de contraseña.
+             */
+            let input_password = $("#user_pass")
+            if(input_password.attr("type") == "password"){
+                password_of("#user_pass");
+            }else if(input_password.attr("type") == "text"){
+                password_on("#user_pass");
+            }
+        }
+    </script>
 </body>
 </html>
