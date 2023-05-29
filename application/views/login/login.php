@@ -20,6 +20,8 @@
         <!-- Outer Row -->
         <div class="row justify-content-center">
             <div class="col-xl-6 col-lg-6 col-md-6">
+                <div class = "w-100" id="load-alert">
+                </div>
                 <div class="card o-hidden border-0 shadow-lg my-5">
                     <div class="card-body p-0">
                         <!-- Nested Row within Card Body -->
@@ -29,34 +31,32 @@
                                     <div class="text-center">
                                         <h1 class="h4 text-gray-900 mb-4">Iniciar Session</h1>
                                     </div>
-
-                                    <div class="input-group mb-3">
-                                         <label for="" class="input-group-text">
-                                            <i class = "fa fa-user"></i>
-                                         </label>
-                                        <input type="text" name="" id="user_name" class="form-control" placeholder = "Nombre de usuario">
-                                    </div>
-
-                                    <div class="input-group mb-3">
-                                         <label for="" class="input-group-text">
-                                            <i class = "fa fa-lock"></i>
-                                         </label>
-                                        <input type="password" name="" id="user_pass" class="form-control" placeholder = "Clave">
-                                        
-                                        <button onclick = "set_visible_password()" class = "input-group-text btn btn-sm btn-secondary">
-                                            <i class = "fa fa-eye"></i>
-                                        </button>
-                                       
-                                    </div>
-
-                                   <div class="row clearfix d-flex justify-content-center ">
-                                        <div class="col-md-8 mt-3">
-                                            <button class="btn btn-success rounded-0 w-100">
-                                                Entrar 
-                                            </button>
+                                    <form action="<?php echo base_url(); ?>index.php/Login/filter" method = "POST">
+                                        <div class="input-group mb-3">
+                                            <label for="" class="input-group-text">
+                                                <i class = "fa fa-user"></i>
+                                            </label>
+                                            <input type="text" name="user_name" id="user_name" class="form-control" placeholder = "Nombre de usuario">
                                         </div>
-                                   </div>
-
+                                        <div class="input-group mb-3">
+                                            <label for="" class="input-group-text">
+                                                <i class = "fa fa-lock"></i>
+                                            </label>
+                                            <input type="password" name="user_pass" id="user_pass" class="form-control" placeholder = "Clave">
+                                            
+                                            <button onclick = "set_visible_password()" class = "input-group-text btn btn-sm btn-secondary">
+                                                <i class = "fa fa-eye"></i>
+                                            </button>
+                                        
+                                        </div>
+                                        <div class="row clearfix d-flex justify-content-center ">
+                                            <div class="col-md-8 mt-3">
+                                                <button type = "submit" id = "btn_process" class="btn btn-success rounded-0 w-100">
+                                                    Entrar 
+                                                </button>
+                                            </div>
+                                        </div>
+                                   </form>
                                     <hr>
                                 </div>
                             </div>
@@ -78,6 +78,9 @@
     <script src="public/template/js/sb-admin-2.min.js"></script>
     <!-- -->
     <script src="public/template/js/sb-admin-2.min.js"></script>
+
+    
+
     <script type = "text/javascript">
         let password_of = (id) => $(id).attr("type", "text");
         let password_on = (id) => $(id).attr("type", "password");
