@@ -13,19 +13,21 @@ class Login extends CI_Controller {
 		$this->load->view('login/login', ["titulo" => "Kraken Dev - Inventario"]);
 	}
 
-	public function input_validation($username, $password){
+	public function login_with_menssage($mensage){
 		/**
-		 * Funcion para validar los campos de texto
+		 *  Vista de login con un mensaje de alerta.
 		 */
-		$trim_user = trim($username);
-		$trim_pass = trim($password);
-		if($trim_user !== "" && $trim_pass !== ""){
-			$pattern = '/^[a-zA-Z, ]*$/';
-			if (preg_match($pattern, $trim_user) && preg_match($pattern, $trim_pass)) {
-				return true;   
-			}
-		}
+		$this->load->view('login/login', ["titulo" => "Kraken Dev - Inventario", "msg" => $mensage]);
 	}
+
+	public function dashboard(){
+		/**
+		 * Aqui se comienzan a armar las sessiones.
+		 */
+		echo "Has pasado el inicio de session";
+	}
+
+	
 
 	public function filter(){
 		/**
@@ -34,24 +36,27 @@ class Login extends CI_Controller {
 		$model = $this->load->model("usuarios_model");
 		$nombre_usuario = $this->input->post("user_name");
 		$clave_usuario = $this->input->post("user_pass");
-		if($this->input_validation($username, $password) == true){
-			if($model->usuarios_model->get_user_registered($nombre_usuario) == true){
-				foreach($data as $model->usuarios_model->get_data_user($nombre_usuario, $clave_usuario)){
-					if($data->nom_usr == $nombre_usuario && $data->pas_user == $model->usuarios_model->set_sql_password($clave_usuario)){
-						$user_data = array(
-							"usr" => $data->nom_usr,
-							"rol" => $data->id_rol_fk,
-							"per" => $data->id_persona_fk
+		if($nombre_usuario == "" && $clave_usuario == ""){
+			$this->login_with_menssage("Asegurece de Llenar el Formulario");
+		}else{
+			if($this->usuarios_model->get_user_registered($nombre_usuario) == true){
+				$data_user = $this->usuarios_model->get_data_user($nombre_usuario, $clave_usuario);
+				foreach ($data_user as $key) {
+					if($key->nom_usr == $nombre_usuario && $key->pas_user == $this->usuarios_model->set_sql_password($clave_usuario)){
+						$set_user_session = array(
+							"id" 	=> $key->id,
+							"rol" 	=> $key->id_rol_fk,
+							"pers" 	=> $key->id_persona_fk
 						);
-						$this->session->set_userdata($user_data);
-						redirect('/Home/index', 'refresh');
+						$this->session->set_userdata($set_user_session);
+						$this->dashboard();
 					}else{
-						redirect('/Login/index', 'refresh');
+						$this->login_with_menssage("Los datos ingresados han sido incorrectos. !");
 					}
 				}
+			}else{
+				$this->login_with_menssage("El usuario que usted ha ingresado no existe !");
 			}
-		}else{
-			
 		}
 	}
 }
